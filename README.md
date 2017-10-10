@@ -32,6 +32,7 @@ cs-173,3,a+
 math-415,0,a+
 phys-212,4,a+
 phys-213,0,a+
+
 fall-2017,fall-2017,fall-2017
 stat-400,4,b0
 cs-357,3,a0
