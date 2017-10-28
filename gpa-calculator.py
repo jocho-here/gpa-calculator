@@ -3,6 +3,7 @@ import re
 
 grades = {'a':4.00,'b':3.00,'c':2.00,'d':1.00,'f':0.00}
 diffs = {'+':0.33, '-':-0.33, '0':0.00}
+tech = {'cs', 'math', 'stat', 'info'}
 grade_diff = float(1)/3 # float() has been added just in case anyone is trying to use it in Python 2
 
 def get_points(grade, credit_hour):
@@ -23,10 +24,12 @@ def get_points(grade, credit_hour):
 	
 	return base_point * credit_hour
 
-with open('gpa-meta.csv', newline='') as csvfile:
+with open('true-gpa-meta.csv', newline='') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',')
-	points = 0
-	credit_hours = 0
+	cum_points = 0
+	cum_credit_hours = 0
+	tech_points = 0
+	tech_hours = 0
 	total_credit_hours = 0
 	pass_course = []
 
@@ -35,16 +38,20 @@ with open('gpa-meta.csv', newline='') as csvfile:
 			break
 		if row[1].isnumeric():
 			credit_hour = int(row[1])
-			credit_hours += credit_hour
 			total_credit_hours += credit_hour
 
 			if row[2] == 'ps':
-				credit_hours -= credit_hour
+				cum_credit_hours -= credit_hour
 				pass_course.append((row[0], row[1]))
 			else:
-				points += get_points(row[2], credit_hour)
+				if row[0].split('-')[0] in tech:
+					tech_points += get_points(row[2], credit_hour)
+					tech_hours += credit_hour
+				cum_points += get_points(row[2], credit_hour)
+				cum_credit_hours += credit_hour
 	
 	print('Total credit hours earned: ', total_credit_hours)
 	print('Pass courses: ', pass_course)
-	print('Credit hours count towards GPA: ', credit_hours)
-	print('Cumulative GPA: ', points/credit_hours)
+	print('Credit hours count towards GPA: ', cum_credit_hours)
+	print('Cumulative GPA: ', cum_points/cum_credit_hours)
+	print('Technical GPA: ', tech_points/tech_hours)
