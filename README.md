@@ -60,6 +60,7 @@ diffs = {'+':0.33, '-':-0.33, '0':0.00}
 
 ## How-to
 - Edit `gpa-meta.csv` accordingly
+- Edit `tech = {...}` part to calculate your major (technical) courses separately
 - Run `python gpa-calculator.py`
 
 ## Example Output
@@ -68,4 +69,5 @@ Total credit hours earned: 30
 Pass courses: [('chem-102', '3'), ('math-231', '4')]
 Credit hours count towards GPA: 23
 Cumulative GPA: 4.0
+Technical GPA: 4.0
 ```
