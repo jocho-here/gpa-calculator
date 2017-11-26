@@ -4,6 +4,7 @@ import re
 grades = {'a':4.00,'b':3.00,'c':2.00,'d':1.00,'f':0.00}
 diffs = {'+':0.33, '-':-0.33, '0':0.00}
 tech = {'cs', 'math', 'stat', 'info'}
+credit_to_grad = 128
 grade_diff = float(1)/3 # float() has been added just in case anyone is trying to use it in Python 2
 
 def get_points(grade, credit_hour):
@@ -41,7 +42,6 @@ with open('true-gpa-meta.csv', newline='') as csvfile:
 			total_credit_hours += credit_hour
 
 			if row[2] == 'ps':
-				cum_credit_hours -= credit_hour
 				pass_course.append((row[0], row[1]))
 			else:
 				if row[0].split('-')[0] in tech:
@@ -50,8 +50,13 @@ with open('true-gpa-meta.csv', newline='') as csvfile:
 				cum_points += get_points(row[2], credit_hour)
 				cum_credit_hours += credit_hour
 	
+	print('')
+	print('')
 	print('Total credit hours earned: ', total_credit_hours)
+	print('Credit hours needed for graduation: ', max(0,credit_to_grad - total_credit_hours))
 	print('Pass courses: ', pass_course)
 	print('Credit hours count towards GPA: ', cum_credit_hours)
 	print('Cumulative GPA: ', cum_points/cum_credit_hours)
 	print('Technical GPA: ', tech_points/tech_hours)
+	print('')
+	print('')
