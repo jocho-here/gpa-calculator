@@ -1,6 +1,9 @@
 # GPA Calculator
 Calculates your GPA
 
+## Environment
+- Python (2.x or 3.x)
+
 ## gpa-meta.csv
 This is where you want to put down the information about your grades.  
 Some rules:

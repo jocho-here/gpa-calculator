@@ -3,7 +3,7 @@ import re
 
 grades = {'a':4.00,'b':3.00,'c':2.00,'d':1.00,'f':0.00}
 diffs = {'+':0.33, '-':-0.33, '0':0.00}
-tech = {'cs', 'math', 'stat', 'info'}
+tech = {'cs', 'math', 'stat'}
 credit_to_grad = 128
 grade_diff = float(1)/3 # float() has been added just in case anyone is trying to use it in Python 2
 
@@ -25,7 +25,14 @@ def get_points(grade, credit_hour):
 	
 	return base_point * credit_hour
 
-with open('true-gpa-meta.csv', newline='') as csvfile:
+def is_numeric(s):
+  try:
+    int(s)
+    return True
+  except ValueError:
+    return False
+
+with open('true-gpa-meta.csv') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',')
 	cum_points = 0
 	cum_credit_hours = 0
@@ -37,7 +44,7 @@ with open('true-gpa-meta.csv', newline='') as csvfile:
 	for row in reader:
 		if len(row) == 0:
 			break
-		if row[1].isnumeric():
+		if is_numeric(row[1]):
 			credit_hour = int(row[1])
 			total_credit_hours += credit_hour
 
