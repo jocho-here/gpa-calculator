@@ -32,7 +32,7 @@ def is_numeric(s):
   except ValueError:
     return False
 
-with open('true-gpa-meta.csv') as csvfile:
+with open('gpa-meta.csv') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',')
 	cum_points = 0
 	cum_credit_hours = 0
