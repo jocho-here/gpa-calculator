@@ -1,4 +1,4 @@
-import csv, re
+import csv
 import config
 
 
